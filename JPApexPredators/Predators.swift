@@ -4,7 +4,7 @@
 //
 //  Created by Luiz Gustavo Barros Campos on 02/09/25.
 //
-
+// VIEWMODEL
 import Foundation
 
 class Predators {
@@ -28,37 +28,27 @@ class Predators {
             }
         }
     }
+}
+
+extension [ApexPredator] {
+    func filter(by type: APType) -> [ApexPredator] {
+        type == .all ? self : self.filter { $0.type == type }
+    }
+    
+    func filterMovie(by movie: APMovies) -> [ApexPredator] {
+        movie == .all ? self : self.filter { $0.movies.contains(movie) }
+    }
+    
+    func sort(by alphabetical: Bool) -> [ApexPredator] {
+        self.sorted {
+            alphabetical ? $0.name < $1.name : $0.id < $1.id
+        }
+    }
     
     func search(for searchText: String) -> [ApexPredator] {
-        if searchText.isEmpty {
-            return apexPredators
-        } else {
-            return apexPredators.filter { predator in
-                predator.name
-                    .localizedCaseInsensitiveContains(searchText)
-                
-            }
-        }
-    }
-    
-    func sort(by alphabetical: Bool) {
-        apexPredators.sort { predator1, predator2 in
-            if alphabetical {
-                return predator1.name < predator2.name
-            } else {
-                return predator1.id < predator2.id
-            }
-            
-        }
-    }
-    
-    func filter(by type: APType) {
-        if type == .all {
-            apexPredators = allApexPredators
-        } else {
-            apexPredators = allApexPredators.filter { predator in
-                predator.type == type
-            }
+        searchText.isEmpty ? self : self.filter {
+            $0.name.localizedCaseInsensitiveContains(searchText)
         }
     }
 }
+

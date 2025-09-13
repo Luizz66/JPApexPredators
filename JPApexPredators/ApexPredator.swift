@@ -4,7 +4,7 @@
 //
 //  Created by Luiz Gustavo Barros Campos on 02/09/25.
 //
-
+// MODEL
 import SwiftUI
 import MapKit
 
@@ -14,7 +14,7 @@ struct ApexPredator: Decodable, Identifiable {
     let type: APType
     let latitude: Double
     let longitude: Double
-    let movies: [String]
+    let movies: APMovies.AllCases
     let movieScenes: [MovieScene]
     let link: String
     
@@ -30,6 +30,20 @@ struct ApexPredator: Decodable, Identifiable {
         let id: Int
         let movie: String
         let sceneDescription: String
+    }
+}
+
+enum APMovies: String, Decodable, CaseIterable, Identifiable {
+    case all
+    case JP1 = "Jurassic Park"
+    case JP2 = "The Lost World: Jurassic Park"
+    case JP3 = "Jurassic Park III"
+    case JW1 = "Jurassic World"
+    case JW2 = "Jurassic World: Fallen Kingdom"
+    case JW3 = "Jurassic World: Dominion"
+    
+    var id: APMovies {
+        self
     }
     
 }

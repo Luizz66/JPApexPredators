@@ -4,7 +4,7 @@
 //
 //  Created by Luiz Gustavo Barros Campos on 02/09/25.
 //
-
+// VIEW
 import SwiftUI
 import MapKit
 
@@ -14,12 +14,14 @@ struct ContentView: View {
     @State var searchText: String = ""
     @State var isAlphabetical: Bool = false
     @State var currentSelection = APType.all
+    @State var moviesAppearSelection = APMovies.all
     
     var filteredDinos: [ApexPredator] {
-        predators.filter(by: currentSelection)
-        predators.sort(by: isAlphabetical)
-        
-        return predators.search(for: searchText)
+        predators.allApexPredators
+            .filter(by: currentSelection)
+            .filterMovie(by: moviesAppearSelection)
+            .sort(by: isAlphabetical)
+            .search(for: searchText)
     }
     
     var body: some View {
@@ -28,8 +30,8 @@ struct ContentView: View {
                 NavigationLink {
                     PredatorDetail(predator: predator,
                                    position: .camera(MapCamera(
-                                        centerCoordinate: predator.location,
-                                        distance: 30000))
+                                    centerCoordinate: predator.location,
+                                    distance: 30000))
                     )
                 } label: {
                     HStack {
@@ -68,12 +70,16 @@ struct ContentView: View {
                             .symbolEffect(.bounce, value: isAlphabetical)
                     }
                 }
-                
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Picker("Filter", selection: $currentSelection.animation()) {//3st animation
                             ForEach(APType.allCases) { type in
                                 Label(type.rawValue.capitalized, systemImage: type.icon)
+                            }
+                        }
+                        Picker("Filter", selection: $moviesAppearSelection.animation()) {
+                            ForEach(APMovies.allCases) { movie in
+                                Label(movie.rawValue.capitalized, systemImage: "movieclapper")
                             }
                         }
                     } label : {

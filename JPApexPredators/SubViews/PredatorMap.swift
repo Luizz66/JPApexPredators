@@ -14,17 +14,36 @@ struct PredatorMap: View {
     @State var position: MapCameraPosition
     @State var satellite = false
     
+    @State var showInfoCard = false
+    
     var body: some View {
         Map(position: $position) {
             ForEach(predators.apexPredators) { predator in
-                Annotation(predator.name, coordinate: predator.location) {
-                    Image(predator.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 100)
-                        .shadow(color: .white, radius: 3)
-                        .scaleEffect(x: -1)
+                Annotation("", coordinate: predator.location) {
+                    ZStack {
+                        Image(predator.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 100)
+                            .shadow(color: .white, radius: 3)
+                            .scaleEffect(x: -1)
+                            .onTapGesture {
+                                withAnimation {
+                                    showInfoCard.toggle()
+                                }
+                            }
+                        if showInfoCard {
+                            InfoCard(predator: predator)
+                                .offset(x: 100)
+                                .transition(.move(edge: .trailing).combined(with: .opacity))
+                        }
+                    }
                 }
+            }
+        }
+        .onTapGesture {
+            withAnimation {
+                showInfoCard ? showInfoCard.toggle() : nil
             }
         }
         .mapStyle(

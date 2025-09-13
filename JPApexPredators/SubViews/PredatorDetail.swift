@@ -29,13 +29,26 @@ struct PredatorDetail: View {
                             ], startPoint: .top, endPoint: .bottom)
                         }
                     
-                    Image(predator.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: geo.size.width/1.5, height: geo.size.height/3.7)
-                        .scaleEffect(x: -1)
-                        .shadow(color: .black, radius: 7)
-                        .offset(y: 20)
+                    NavigationLink {
+                        Text(predator.name)
+                            .font(.largeTitle)
+                            .padding()
+                        Spacer()
+                        Image(predator.image)
+                            .resizable()
+                            .scaledToFit()
+                            .scaleEffect(x: -1)
+                            .shadow(color: .white, radius: 7)
+                        Spacer()
+                    } label: {
+                        Image(predator.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geo.size.width/1.5, height: geo.size.height/3.7)
+                            .scaleEffect(x: -1)
+                            .shadow(color: .black, radius: 7)
+                            .offset(y: 20)
+                    }
                 }
                 
                 VStack (alignment: .leading){
@@ -88,7 +101,7 @@ struct PredatorDetail: View {
                         .font(.title3)
                         .padding(.top)
                     ForEach(predator.movies, id: \.self) { movie in
-                        Text("•\(movie)")
+                        Text("•\(movie.rawValue)")
                             .font(.subheadline)
                     }
                     Text("Movie Moments")
