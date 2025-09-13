@@ -13,7 +13,6 @@ struct PredatorMap: View {
     
     @State var position: MapCameraPosition
     @State var satellite = false
-    
     @State var showInfoCard = false
     
     var body: some View {
@@ -64,7 +63,6 @@ struct PredatorMap: View {
                 .clipShape(.rect(cornerRadius: 7))
                 .shadow(radius: 3)
                 .padding()
-                
             }
         }
         .toolbarBackgroundVisibility(.automatic)

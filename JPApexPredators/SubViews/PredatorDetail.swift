@@ -12,7 +12,6 @@ struct PredatorDetail: View {
     let predator: ApexPredator
     
     @State var position: MapCameraPosition
-    
     @Namespace var namespace
     
     var body: some View {
@@ -55,7 +54,6 @@ struct PredatorDetail: View {
                     Text(predator.name)
                         .font(.largeTitle)
                     
-                    
                     NavigationLink {
                         PredatorMap(position: .camera(
                             MapCamera(
@@ -79,7 +77,6 @@ struct PredatorDetail: View {
                                 .annotationTitles(.hidden)
                         }
                         .frame(height: 125)
-                        
                         .overlay(alignment: .trailing) {
                             Image(systemName: "greaterthan")
                                 .imageScale(.large)
@@ -114,7 +111,6 @@ struct PredatorDetail: View {
                         Text(scene.sceneDescription)
                             .padding(.bottom, 15)
                     }
-                    
                     Text("Read More:")
                         .font(.caption)
                     Link(predator.link, destination: URL(string: predator.link)!)

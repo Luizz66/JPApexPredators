@@ -8,7 +8,6 @@
 import Foundation
 
 class Predators {
-    var allApexPredators: [ApexPredator] = []//array immutable
     var apexPredators: [ApexPredator] = []
     
     init() {
@@ -21,8 +20,7 @@ class Predators {
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                allApexPredators = try decoder.decode([ApexPredator].self, from: data)
-                apexPredators = allApexPredators
+                apexPredators = try decoder.decode([ApexPredator].self, from: data)
             } catch {
                 print("Error decoging JSON data: \(error)")
             }
@@ -51,4 +49,3 @@ extension [ApexPredator] {
         }
     }
 }
-

@@ -13,11 +13,12 @@ struct ContentView: View {
     
     @State var searchText: String = ""
     @State var isAlphabetical: Bool = false
+    
     @State var currentSelection = APType.all
     @State var moviesAppearSelection = APMovies.all
     
     var filteredDinos: [ApexPredator] {
-        predators.allApexPredators
+        predators.apexPredators
             .filter(by: currentSelection)
             .filterMovie(by: moviesAppearSelection)
             .sort(by: isAlphabetical)

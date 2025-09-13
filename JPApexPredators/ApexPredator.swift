@@ -45,7 +45,6 @@ enum APMovies: String, Decodable, CaseIterable, Identifiable {
     var id: APMovies {
         self
     }
-    
 }
 
 enum APType: String, Decodable, CaseIterable, Identifiable {
